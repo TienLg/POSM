@@ -1,0 +1,629 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SaleManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="cust_id" />
+          </Key>
+          <Property Name="cust_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cust_name" Type="nchar" MaxLength="255" Nullable="false" />
+          <Property Name="cust_address" Type="nchar" MaxLength="255" />
+          <Property Name="cust_phone" Type="nchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="ImportOrderItems">
+          <Key>
+            <PropertyRef Name="order_item_id" />
+          </Key>
+          <Property Name="order_item_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="order_id" Type="int" Nullable="false" />
+          <Property Name="prod_id" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="base_price_by_unit" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="base_price_by_stock" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="quantity_by_unit" Type="int" Nullable="false" />
+          <Property Name="quantity_by_stock" Type="int" Nullable="false" />
+          <Property Name="quantity_control" Type="int" Nullable="false" />
+          <Property Name="date_expired" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="ImportOrders">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="total_price" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="date_import" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="order_status" Type="nchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="prod_id" />
+          </Key>
+          <Property Name="prod_id" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="prod_name" Type="nchar" MaxLength="255" Nullable="false" />
+          <Property Name="quantity_control" Type="int" Nullable="false" />
+          <Property Name="quantity_by_unit" Type="int" Nullable="false" />
+          <Property Name="quantity_by_stock" Type="int" Nullable="false" />
+          <Property Name="sale_price_by_unit" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="sale_price_by_stock" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="date_added" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="date_modified" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SaleOrderItems">
+          <Key>
+            <PropertyRef Name="order_item_id" />
+          </Key>
+          <Property Name="order_item_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="order_id" Type="int" Nullable="false" />
+          <Property Name="prod_id" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="sale_price_by_unit" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="sale_price_by_stock" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="quantity_by_unit" Type="int" Nullable="false" />
+          <Property Name="quantity_by_stock" Type="int" Nullable="false" />
+          <Property Name="quantity_control" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SaleOrders">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cust_id" Type="int" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="total_price" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="taken_money" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="date_created" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="date_ship" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="order_status" Type="nchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Stocks">
+          <Key>
+            <PropertyRef Name="stock_id" />
+          </Key>
+          <Property Name="stock_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="prod_id" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="base_price_by_unit" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="base_price_by_stock" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="quantity_by_unit" Type="int" Nullable="false" />
+          <Property Name="quantity_by_stock" Type="int" Nullable="false" />
+          <Property Name="quantity_control" Type="int" Nullable="false" />
+          <Property Name="date_expired" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="user_name" Type="nchar" MaxLength="255" Nullable="false" />
+          <Property Name="user_pwd" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="user_role" Type="nchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ImportOrderItems_ImportOrders">
+          <End Role="ImportOrders" Type="Self.ImportOrders" Multiplicity="1" />
+          <End Role="ImportOrderItems" Type="Self.ImportOrderItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ImportOrders">
+              <PropertyRef Name="order_id" />
+            </Principal>
+            <Dependent Role="ImportOrderItems">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ImportOrderItems_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="ImportOrderItems" Type="Self.ImportOrderItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="prod_id" />
+            </Principal>
+            <Dependent Role="ImportOrderItems">
+              <PropertyRef Name="prod_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ImportOrders_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="ImportOrders" Type="Self.ImportOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="ImportOrders">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaleOrderItems_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="SaleOrderItems" Type="Self.SaleOrderItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="prod_id" />
+            </Principal>
+            <Dependent Role="SaleOrderItems">
+              <PropertyRef Name="prod_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaleOrderItems_SaleOrders">
+          <End Role="SaleOrders" Type="Self.SaleOrders" Multiplicity="1" />
+          <End Role="SaleOrderItems" Type="Self.SaleOrderItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SaleOrders">
+              <PropertyRef Name="order_id" />
+            </Principal>
+            <Dependent Role="SaleOrderItems">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaleOrders_Customers">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+          <End Role="SaleOrders" Type="Self.SaleOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="cust_id" />
+            </Principal>
+            <Dependent Role="SaleOrders">
+              <PropertyRef Name="cust_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaleOrders_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="SaleOrders" Type="Self.SaleOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="SaleOrders">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stocks_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Stocks" Type="Self.Stocks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="prod_id" />
+            </Principal>
+            <Dependent Role="Stocks">
+              <PropertyRef Name="prod_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="stock_count" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="SaleManagementModelStoreContainer">
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ImportOrderItems" EntityType="Self.ImportOrderItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ImportOrders" EntityType="Self.ImportOrders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SaleOrderItems" EntityType="Self.SaleOrderItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SaleOrders" EntityType="Self.SaleOrders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stocks" EntityType="Self.Stocks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ImportOrderItems_ImportOrders" Association="Self.FK_ImportOrderItems_ImportOrders">
+            <End Role="ImportOrders" EntitySet="ImportOrders" />
+            <End Role="ImportOrderItems" EntitySet="ImportOrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ImportOrderItems_Products" Association="Self.FK_ImportOrderItems_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ImportOrderItems" EntitySet="ImportOrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ImportOrders_Users" Association="Self.FK_ImportOrders_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ImportOrders" EntitySet="ImportOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaleOrderItems_Products" Association="Self.FK_SaleOrderItems_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="SaleOrderItems" EntitySet="SaleOrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaleOrderItems_SaleOrders" Association="Self.FK_SaleOrderItems_SaleOrders">
+            <End Role="SaleOrders" EntitySet="SaleOrders" />
+            <End Role="SaleOrderItems" EntitySet="SaleOrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaleOrders_Customers" Association="Self.FK_SaleOrders_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="SaleOrders" EntitySet="SaleOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaleOrders_Users" Association="Self.FK_SaleOrders_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="SaleOrders" EntitySet="SaleOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stocks_Products" Association="Self.FK_Stocks_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Stocks" EntitySet="Stocks" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SaleManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="cust_id" />
+          </Key>
+          <Property Name="cust_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cust_name" Type="String" MaxLength="255" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="cust_address" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+          <Property Name="cust_phone" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="SaleOrders" Relationship="Self.FK_SaleOrders_Customers" FromRole="Customers" ToRole="SaleOrders" />
+        </EntityType>
+        <EntityType Name="ImportOrderItem">
+          <Key>
+            <PropertyRef Name="order_item_id" />
+          </Key>
+          <Property Name="order_item_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="order_id" Type="Int32" Nullable="false" />
+          <Property Name="prod_id" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="base_price_by_unit" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="base_price_by_stock" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="quantity_by_unit" Type="Int32" Nullable="false" />
+          <Property Name="quantity_by_stock" Type="Int32" Nullable="false" />
+          <Property Name="quantity_control" Type="Int32" Nullable="false" />
+          <Property Name="date_expired" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="ImportOrder" Relationship="Self.FK_ImportOrderItems_ImportOrders" FromRole="ImportOrderItems" ToRole="ImportOrders" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_ImportOrderItems_Products" FromRole="ImportOrderItems" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="ImportOrder">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="total_price" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="date_import" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="order_status" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ImportOrderItems" Relationship="Self.FK_ImportOrderItems_ImportOrders" FromRole="ImportOrders" ToRole="ImportOrderItems" />
+          <NavigationProperty Name="User" Relationship="Self.FK_ImportOrders_Users" FromRole="ImportOrders" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="prod_id" />
+          </Key>
+          <Property Name="prod_id" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="prod_name" Type="String" MaxLength="255" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="quantity_control" Type="Int32" Nullable="false" />
+          <Property Name="quantity_by_unit" Type="Int32" Nullable="false" />
+          <Property Name="quantity_by_stock" Type="Int32" Nullable="false" />
+          <Property Name="sale_price_by_unit" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="sale_price_by_stock" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="date_added" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="date_modified" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="ImportOrderItems" Relationship="Self.FK_ImportOrderItems_Products" FromRole="Products" ToRole="ImportOrderItems" />
+          <NavigationProperty Name="SaleOrderItems" Relationship="Self.FK_SaleOrderItems_Products" FromRole="Products" ToRole="SaleOrderItems" />
+          <NavigationProperty Name="Stocks" Relationship="Self.FK_Stocks_Products" FromRole="Products" ToRole="Stocks" />
+        </EntityType>
+        <EntityType Name="SaleOrderItem">
+          <Key>
+            <PropertyRef Name="order_item_id" />
+          </Key>
+          <Property Name="order_item_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="order_id" Type="Int32" Nullable="false" />
+          <Property Name="prod_id" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="sale_price_by_unit" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="sale_price_by_stock" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="quantity_by_unit" Type="Int32" Nullable="false" />
+          <Property Name="quantity_by_stock" Type="Int32" Nullable="false" />
+          <Property Name="quantity_control" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_SaleOrderItems_Products" FromRole="SaleOrderItems" ToRole="Products" />
+          <NavigationProperty Name="SaleOrder" Relationship="Self.FK_SaleOrderItems_SaleOrders" FromRole="SaleOrderItems" ToRole="SaleOrders" />
+        </EntityType>
+        <EntityType Name="SaleOrder">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cust_id" Type="Int32" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="total_price" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="taken_money" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="date_ship" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="order_status" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_SaleOrders_Customers" FromRole="SaleOrders" ToRole="Customers" />
+          <NavigationProperty Name="SaleOrderItems" Relationship="Self.FK_SaleOrderItems_SaleOrders" FromRole="SaleOrders" ToRole="SaleOrderItems" />
+          <NavigationProperty Name="User" Relationship="Self.FK_SaleOrders_Users" FromRole="SaleOrders" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Stock">
+          <Key>
+            <PropertyRef Name="stock_id" />
+          </Key>
+          <Property Name="stock_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="prod_id" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="base_price_by_unit" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="base_price_by_stock" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="quantity_by_unit" Type="Int32" Nullable="false" />
+          <Property Name="quantity_by_stock" Type="Int32" Nullable="false" />
+          <Property Name="quantity_control" Type="Int32" Nullable="false" />
+          <Property Name="date_expired" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Stocks_Products" FromRole="Stocks" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="user_name" Type="String" MaxLength="255" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="user_pwd" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="user_role" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ImportOrders" Relationship="Self.FK_ImportOrders_Users" FromRole="Users" ToRole="ImportOrders" />
+          <NavigationProperty Name="SaleOrders" Relationship="Self.FK_SaleOrders_Users" FromRole="Users" ToRole="SaleOrders" />
+        </EntityType>
+        <Association Name="FK_SaleOrders_Customers">
+          <End Role="Customers" Type="Self.Customer" Multiplicity="1" />
+          <End Role="SaleOrders" Type="Self.SaleOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="cust_id" />
+            </Principal>
+            <Dependent Role="SaleOrders">
+              <PropertyRef Name="cust_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ImportOrderItems_ImportOrders">
+          <End Role="ImportOrders" Type="Self.ImportOrder" Multiplicity="1" />
+          <End Role="ImportOrderItems" Type="Self.ImportOrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ImportOrders">
+              <PropertyRef Name="order_id" />
+            </Principal>
+            <Dependent Role="ImportOrderItems">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ImportOrderItems_Products">
+          <End Role="Products" Type="Self.Product" Multiplicity="1" />
+          <End Role="ImportOrderItems" Type="Self.ImportOrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="prod_id" />
+            </Principal>
+            <Dependent Role="ImportOrderItems">
+              <PropertyRef Name="prod_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ImportOrders_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="ImportOrders" Type="Self.ImportOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="ImportOrders">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaleOrderItems_Products">
+          <End Role="Products" Type="Self.Product" Multiplicity="1" />
+          <End Role="SaleOrderItems" Type="Self.SaleOrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="prod_id" />
+            </Principal>
+            <Dependent Role="SaleOrderItems">
+              <PropertyRef Name="prod_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stocks_Products">
+          <End Role="Products" Type="Self.Product" Multiplicity="1" />
+          <End Role="Stocks" Type="Self.Stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="prod_id" />
+            </Principal>
+            <Dependent Role="Stocks">
+              <PropertyRef Name="prod_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaleOrderItems_SaleOrders">
+          <End Role="SaleOrders" Type="Self.SaleOrder" Multiplicity="1" />
+          <End Role="SaleOrderItems" Type="Self.SaleOrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SaleOrders">
+              <PropertyRef Name="order_id" />
+            </Principal>
+            <Dependent Role="SaleOrderItems">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaleOrders_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="SaleOrders" Type="Self.SaleOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="SaleOrders">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SMEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="ImportOrderItems" EntityType="Self.ImportOrderItem" />
+          <EntitySet Name="ImportOrders" EntityType="Self.ImportOrder" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="SaleOrderItems" EntityType="Self.SaleOrderItem" />
+          <EntitySet Name="SaleOrders" EntityType="Self.SaleOrder" />
+          <EntitySet Name="Stocks" EntityType="Self.Stock" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_SaleOrders_Customers" Association="Self.FK_SaleOrders_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="SaleOrders" EntitySet="SaleOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ImportOrderItems_ImportOrders" Association="Self.FK_ImportOrderItems_ImportOrders">
+            <End Role="ImportOrders" EntitySet="ImportOrders" />
+            <End Role="ImportOrderItems" EntitySet="ImportOrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ImportOrderItems_Products" Association="Self.FK_ImportOrderItems_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ImportOrderItems" EntitySet="ImportOrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ImportOrders_Users" Association="Self.FK_ImportOrders_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ImportOrders" EntitySet="ImportOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaleOrderItems_Products" Association="Self.FK_SaleOrderItems_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="SaleOrderItems" EntitySet="SaleOrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stocks_Products" Association="Self.FK_Stocks_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Stocks" EntitySet="Stocks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaleOrderItems_SaleOrders" Association="Self.FK_SaleOrderItems_SaleOrders">
+            <End Role="SaleOrders" EntitySet="SaleOrders" />
+            <End Role="SaleOrderItems" EntitySet="SaleOrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaleOrders_Users" Association="Self.FK_SaleOrders_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="SaleOrders" EntitySet="SaleOrders" />
+          </AssociationSet>
+          <FunctionImport Name="stock_count" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SaleManagementModelStoreContainer" CdmEntityContainer="SMEntities">
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="SaleManagementModel.Customer">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="cust_id" ColumnName="cust_id" />
+                <ScalarProperty Name="cust_name" ColumnName="cust_name" />
+                <ScalarProperty Name="cust_address" ColumnName="cust_address" />
+                <ScalarProperty Name="cust_phone" ColumnName="cust_phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ImportOrderItems">
+            <EntityTypeMapping TypeName="SaleManagementModel.ImportOrderItem">
+              <MappingFragment StoreEntitySet="ImportOrderItems">
+                <ScalarProperty Name="order_item_id" ColumnName="order_item_id" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="prod_id" ColumnName="prod_id" />
+                <ScalarProperty Name="base_price_by_unit" ColumnName="base_price_by_unit" />
+                <ScalarProperty Name="base_price_by_stock" ColumnName="base_price_by_stock" />
+                <ScalarProperty Name="quantity_by_unit" ColumnName="quantity_by_unit" />
+                <ScalarProperty Name="quantity_by_stock" ColumnName="quantity_by_stock" />
+                <ScalarProperty Name="quantity_control" ColumnName="quantity_control" />
+                <ScalarProperty Name="date_expired" ColumnName="date_expired" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ImportOrders">
+            <EntityTypeMapping TypeName="SaleManagementModel.ImportOrder">
+              <MappingFragment StoreEntitySet="ImportOrders">
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="total_price" ColumnName="total_price" />
+                <ScalarProperty Name="date_import" ColumnName="date_import" />
+                <ScalarProperty Name="order_status" ColumnName="order_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="SaleManagementModel.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="prod_id" ColumnName="prod_id" />
+                <ScalarProperty Name="prod_name" ColumnName="prod_name" />
+                <ScalarProperty Name="quantity_control" ColumnName="quantity_control" />
+                <ScalarProperty Name="quantity_by_unit" ColumnName="quantity_by_unit" />
+                <ScalarProperty Name="quantity_by_stock" ColumnName="quantity_by_stock" />
+                <ScalarProperty Name="sale_price_by_unit" ColumnName="sale_price_by_unit" />
+                <ScalarProperty Name="sale_price_by_stock" ColumnName="sale_price_by_stock" />
+                <ScalarProperty Name="date_added" ColumnName="date_added" />
+                <ScalarProperty Name="date_modified" ColumnName="date_modified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SaleOrderItems">
+            <EntityTypeMapping TypeName="SaleManagementModel.SaleOrderItem">
+              <MappingFragment StoreEntitySet="SaleOrderItems">
+                <ScalarProperty Name="order_item_id" ColumnName="order_item_id" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="prod_id" ColumnName="prod_id" />
+                <ScalarProperty Name="sale_price_by_unit" ColumnName="sale_price_by_unit" />
+                <ScalarProperty Name="sale_price_by_stock" ColumnName="sale_price_by_stock" />
+                <ScalarProperty Name="quantity_by_unit" ColumnName="quantity_by_unit" />
+                <ScalarProperty Name="quantity_by_stock" ColumnName="quantity_by_stock" />
+                <ScalarProperty Name="quantity_control" ColumnName="quantity_control" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SaleOrders">
+            <EntityTypeMapping TypeName="SaleManagementModel.SaleOrder">
+              <MappingFragment StoreEntitySet="SaleOrders">
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="cust_id" ColumnName="cust_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="total_price" ColumnName="total_price" />
+                <ScalarProperty Name="taken_money" ColumnName="taken_money" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="date_ship" ColumnName="date_ship" />
+                <ScalarProperty Name="order_status" ColumnName="order_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stocks">
+            <EntityTypeMapping TypeName="SaleManagementModel.Stock">
+              <MappingFragment StoreEntitySet="Stocks">
+                <ScalarProperty Name="stock_id" ColumnName="stock_id" />
+                <ScalarProperty Name="prod_id" ColumnName="prod_id" />
+                <ScalarProperty Name="base_price_by_unit" ColumnName="base_price_by_unit" />
+                <ScalarProperty Name="base_price_by_stock" ColumnName="base_price_by_stock" />
+                <ScalarProperty Name="quantity_by_unit" ColumnName="quantity_by_unit" />
+                <ScalarProperty Name="quantity_by_stock" ColumnName="quantity_by_stock" />
+                <ScalarProperty Name="quantity_control" ColumnName="quantity_control" />
+                <ScalarProperty Name="date_expired" ColumnName="date_expired" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="SaleManagementModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="user_pwd" ColumnName="user_pwd" />
+                <ScalarProperty Name="user_role" ColumnName="user_role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="stock_count" FunctionName="SaleManagementModel.Store.stock_count" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

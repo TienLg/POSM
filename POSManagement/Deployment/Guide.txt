@@ -1,0 +1,7 @@
+1. Install
+	1.1 .NET framework 4.5
+	1.2 SQL Server Express 2014
+2. Click to run 'create db.bat'
+3. Run PostManagement.exe
+4. Gọi nếu gặp rắc rối
+	0983500335

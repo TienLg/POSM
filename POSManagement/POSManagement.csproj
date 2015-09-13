@@ -1,0 +1,300 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0683FAE9-9694-495C-AFF2-FBC749DD7D9E}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>POSManagement</RootNamespace>
+    <AssemblyName>POSManagement</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <EntityDeploy Include="Models\SMModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SMModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Deployment\create db.bat" />
+    <None Include="Deployment\drop db.bat" />
+    <None Include="Deployment\Import Data.xlsx" />
+    <None Include="Deployment\Product Data.xlsx" />
+    <None Include="Models\SMModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SMModel.edmx</DependentUpon>
+      <LastGenOutput>SMModel.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Models\SMModel.edmx.diagram">
+      <DependentUpon>SMModel.edmx</DependentUpon>
+    </None>
+    <None Include="Models\SMModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SMModel.edmx</DependentUpon>
+      <LastGenOutput>SMModel.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Addition\ImportOrderItem.cs" />
+    <Compile Include="Models\Addition\SaleOrder.cs" />
+    <Compile Include="Models\Addition\SaleOrderItem.cs" />
+    <Compile Include="Models\Customer.cs">
+      <DependentUpon>SMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ImportOrder.cs">
+      <DependentUpon>SMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ImportOrderItem.cs">
+      <DependentUpon>SMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Product.cs">
+      <DependentUpon>SMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SaleOrder.cs">
+      <DependentUpon>SMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SaleOrderItem.cs">
+      <DependentUpon>SMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SMModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SMModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SMModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SMModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SMModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Stock.cs">
+      <DependentUpon>SMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>SMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Presenters\IView.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Views\CustomControls\CustomerReportControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\CustomControls\CustomerReportControl.Designer.cs">
+      <DependentUpon>CustomerReportControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomControls\CustomerSearchDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\CustomControls\CustomerSearchDialog.Designer.cs">
+      <DependentUpon>CustomerSearchDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomControls\ImportReportControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\CustomControls\ImportReportControl.Designer.cs">
+      <DependentUpon>ImportReportControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomControls\ImportOrderControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\CustomControls\ImportOrderControl.Designer.cs">
+      <DependentUpon>ImportOrderControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomControls\ImportOrderSearchControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\CustomControls\ImportOrderSearchControl.Designer.cs">
+      <DependentUpon>ImportOrderSearchControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomControls\ProductSearchDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\CustomControls\ProductSearchDialog.Designer.cs">
+      <DependentUpon>ProductSearchDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomerReportView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\CustomerReportView.Designer.cs">
+      <DependentUpon>CustomerReportView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ImportOrderView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ImportOrderView.Designer.cs">
+      <DependentUpon>ImportOrderView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ImportReportView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ImportReportView.Designer.cs">
+      <DependentUpon>ImportReportView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\MainView.Designer.cs">
+      <DependentUpon>MainView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomControls\ProductEditorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\CustomControls\ProductEditorControl.Designer.cs">
+      <DependentUpon>ProductEditorControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProductView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ProductView.Designer.cs">
+      <DependentUpon>ProductView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomControls\ProductSearchControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\CustomControls\ProductSearchControl.Designer.cs">
+      <DependentUpon>ProductSearchControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomControls\SaleOrderControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\CustomControls\SaleOrderControl.Designer.cs">
+      <DependentUpon>SaleOrderControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomControls\SaleOrderSearchControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\CustomControls\SaleOrderSearchControl.Designer.cs">
+      <DependentUpon>SaleOrderSearchControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SaleOrderView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\SaleOrderView.Designer.cs">
+      <DependentUpon>SaleOrderView.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Vbe.Interop, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\CustomControls\CustomerReportControl.resx">
+      <DependentUpon>CustomerReportControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\CustomControls\CustomerSearchDialog.resx">
+      <DependentUpon>CustomerSearchDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\CustomControls\ImportReportControl.resx">
+      <DependentUpon>ImportReportControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\CustomControls\ImportOrderControl.resx">
+      <DependentUpon>ImportOrderControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\CustomControls\ImportOrderSearchControl.resx">
+      <DependentUpon>ImportOrderSearchControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\CustomControls\ProductSearchDialog.resx">
+      <DependentUpon>ProductSearchDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\CustomerReportView.resx">
+      <DependentUpon>CustomerReportView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ImportOrderView.resx">
+      <DependentUpon>ImportOrderView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ImportReportView.resx">
+      <DependentUpon>ImportReportView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\MainView.resx">
+      <DependentUpon>MainView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\CustomControls\ProductEditorControl.resx">
+      <DependentUpon>ProductEditorControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ProductView.resx">
+      <DependentUpon>ProductView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\CustomControls\ProductSearchControl.resx">
+      <DependentUpon>ProductSearchControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\CustomControls\SaleOrderControl.resx">
+      <DependentUpon>SaleOrderControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\CustomControls\SaleOrderSearchControl.resx">
+      <DependentUpon>SaleOrderSearchControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\SaleOrderView.resx">
+      <DependentUpon>SaleOrderView.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Deployment\Guide.txt" />
+    <Content Include="Deployment\SaleManagementScript.sql" />
+    <Content Include="Deployment\SMDrop.sql" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
